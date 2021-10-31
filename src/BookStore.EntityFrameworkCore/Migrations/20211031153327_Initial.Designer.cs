@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace BookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20211031152828_Initial")]
+    [Migration("20211031153327_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,9 +194,6 @@ namespace BookStore.Migrations
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2")

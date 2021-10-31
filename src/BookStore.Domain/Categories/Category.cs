@@ -8,17 +8,14 @@ namespace BookStore.Categories
     {
         public string Name { get; private set; }
 
-        public bool IsActive { get; set; }
-
         /* This constructor is for deserialization / ORM purpose */
         private Category()
         {
         }
 
-        public Category(Guid id, string name, bool isActive = true) : base(id)
+        public Category(Guid id, string name) : base(id)
         {
             SetName(name);
-            IsActive = isActive;
         }
 
         public Category SetName(string name)
