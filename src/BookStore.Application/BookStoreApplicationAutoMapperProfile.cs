@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using BookStore.Authors;
+using BookStore.Categories;
 
 namespace BookStore
 {
@@ -6,9 +8,11 @@ namespace BookStore
     {
         public BookStoreApplicationAutoMapperProfile()
         {
-            /* You can configure your AutoMapper mapping configuration here.
-             * Alternatively, you can split your mapping configurations
-             * into multiple profile classes for a better organization. */
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CreateUpdateCategoryDto, Category>();
+
+            CreateMap<Author, AuthorDto>();
+            CreateMap<CreateUpdateAuthorDto, Author>();
         }
     }
 }
