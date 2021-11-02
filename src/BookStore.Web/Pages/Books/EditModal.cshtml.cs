@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStore.Books;
@@ -9,11 +10,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookStore.Web.Pages.Books
 {
-    public class CreateModal : BookStorePageModel
+    public class EditModal : BookStorePageModel
     {
+        [HiddenInput]
+        [BindProperty(SupportsGet = true)]
+        public Guid Id { get; set; }
+
         [BindProperty]
-        public CreateUpdateBookDto Book { get; set; }
-           
+        public CreateUpdateBookDto EditingBook { get; set; }
+        
         [BindProperty]
         public List<CategoryViewModel> Categories { get; set; }
         
@@ -21,14 +26,15 @@ namespace BookStore.Web.Pages.Books
 
         private readonly IBookAppService _bookAppService;
 
-        public CreateModal(IBookAppService bookAppService)
+        public EditModal(IBookAppService bookAppService)
         {
             _bookAppService = bookAppService;
         }
 
         public async Task OnGetAsync()
         {
-            Book = new CreateUpdateBookDto();
+            var bookDto = await _bookAppService.GetAsync(Id);
+            EditingBook = ObjectMapper.Map<BookDto, CreateUpdateBookDto>(bookDto);
             
             var authorLookup = await _bookAppService.GetAuthorLookupAsync();
             AuthorList = authorLookup.Items
@@ -37,6 +43,14 @@ namespace BookStore.Web.Pages.Books
 
             var categoryLookupDto = await _bookAppService.GetCategoryLookupAsync();
             Categories = ObjectMapper.Map<List<CategoryLookupDto>, List<CategoryViewModel>>(categoryLookupDto.Items.ToList());
+
+            if (EditingBook.CategoryNames != null && EditingBook.CategoryNames.Any())
+            {
+                Categories
+                    .Where(x => EditingBook.CategoryNames.Contains(x.Name))
+                    .ToList()
+                    .ForEach(x => x.IsSelected = true);
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -47,10 +61,10 @@ namespace BookStore.Web.Pages.Books
             if (selectedCategories.Any())
             {
                 var categoryNames = selectedCategories.Select(x => x.Name).ToArray();
-                Book.CategoryNames = categoryNames;
+                EditingBook.CategoryNames = categoryNames;
             }
             
-            await _bookAppService.CreateAsync(Book);
+            await _bookAppService.UpdateAsync(Id, EditingBook);
             return NoContent();
         }
     }

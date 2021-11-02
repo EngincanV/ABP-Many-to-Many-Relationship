@@ -64,5 +64,10 @@ namespace BookStore.Books
                         select category.Name).ToArray()
                 });
         }
+
+        public override Task<IQueryable<Book>> WithDetailsAsync()
+        {
+            return base.WithDetailsAsync(x => x.Categories);
+        }
     }
 }

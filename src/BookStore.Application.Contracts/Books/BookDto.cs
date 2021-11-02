@@ -1,9 +1,10 @@
 ﻿using System;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Auditing;
 
 namespace BookStore.Books
 {
-    public class BookDto : IHasCreationTime
+    public class BookDto : EntityDto<Guid>
     {
         public string AuthorName { get; set; }
 
@@ -14,7 +15,5 @@ namespace BookStore.Books
         public float Price { get; set; }
 
         public string[] CategoryNames { get; set; }
-        
-        public DateTime CreationTime { get; }
     }
 }
