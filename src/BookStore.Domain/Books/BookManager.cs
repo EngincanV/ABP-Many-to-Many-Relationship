@@ -38,10 +38,8 @@ namespace BookStore.Books
             [CanBeNull] string[] categoryNames
         )
         {
-            Check.NotNullOrWhiteSpace(name, nameof(name), BookConsts.MaxNameLength);
-
             book.AuthorId = authorId;
-            book.Name = name;
+            book.SetName(name);
             book.PublishDate = publishDate;
             book.Price = price;
             

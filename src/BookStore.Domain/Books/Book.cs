@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using BookStore.Categories;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -12,7 +11,7 @@ namespace BookStore.Books
     {
         public Guid AuthorId { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         public DateTime PublishDate { get; set; }
 
@@ -28,11 +27,16 @@ namespace BookStore.Books
             : base(id)
         {
             AuthorId = authorId;
-            Name = name;
+            SetName(name);
             PublishDate = publishDate;
             Price = price;
 
             Categories = new Collection<BookCategory>();
+        }
+
+        public void SetName(string name)
+        {
+            Name = Check.NotNullOrWhiteSpace(name, nameof(name), BookConsts.MaxNameLength);
         }
 
         public void AddCategory(Guid categoryId)
