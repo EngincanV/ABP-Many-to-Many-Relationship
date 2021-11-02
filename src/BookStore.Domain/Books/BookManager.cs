@@ -50,9 +50,9 @@ namespace BookStore.Books
             await _bookRepository.UpdateAsync(book);
         }
         
-        private async Task SetCategoriesAsync(Book book, string[] categoryNames)
+        private async Task SetCategoriesAsync(Book book, [CanBeNull] string[] categoryNames)
         {
-            if (!categoryNames.Any())
+            if (categoryNames == null || !categoryNames.Any())
             {
                 book.RemoveAllCategories();
                 return;

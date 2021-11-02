@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using BookStore.Categories;
+using BookStore.Web.Pages.Books;
+using Volo.Abp.AutoMapper;
 
 namespace BookStore.Web
 {
@@ -6,7 +9,8 @@ namespace BookStore.Web
     {
         public BookStoreWebAutoMapperProfile()
         {
-            //Define your AutoMapper configuration here for the Web project.
+            CreateMap<CategoryLookupDto, CreateModal.CategoryViewModel>()
+                .Ignore(x => x.IsSelected);
         }
     }
 }

@@ -10,12 +10,15 @@ namespace BookStore
         public BookStoreApplicationAutoMapperProfile()
         {
             CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryLookupDto>();
             CreateMap<CreateUpdateCategoryDto, Category>();
 
             CreateMap<Author, AuthorDto>();
+            CreateMap<Author, AuthorLookupDto>();
             CreateMap<CreateUpdateAuthorDto, Author>();
 
             CreateMap<BookWithDetails, BookDto>();
+            
         }
     }
 }

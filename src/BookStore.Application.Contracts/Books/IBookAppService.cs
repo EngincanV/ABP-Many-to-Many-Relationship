@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BookStore.Authors;
+using BookStore.Categories;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -16,5 +18,9 @@ namespace BookStore.Books
         Task UpdateAsync(Guid id, CreateUpdateBookDto input);
 
         Task DeleteAsync(Guid id);
+
+        Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
+
+        Task<ListResultDto<CategoryLookupDto>> GetCategoryLookupAsync();
     }
 }

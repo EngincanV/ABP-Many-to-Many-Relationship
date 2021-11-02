@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BookStore.Authors;
+using BookStore.Categories;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 
@@ -10,11 +12,20 @@ namespace BookStore.Books
     {
         private readonly IBookRepository _bookRepository;
         private readonly BookManager _bookManager;
+        private readonly IRepository<Author, Guid> _authorRepository;
+        private readonly IRepository<Category, Guid> _categoryRepository;
 
-        public BookAppService(IBookRepository bookRepository, BookManager bookManager)
+        public BookAppService(
+            IBookRepository bookRepository, 
+            BookManager bookManager, 
+            IRepository<Author, Guid> authorRepository,
+            IRepository<Category, Guid> categoryRepository
+            )
         {
             _bookRepository = bookRepository;
             _bookManager = bookManager;
+            _authorRepository = authorRepository;
+            _categoryRepository = categoryRepository;
         }
         
         public async Task<PagedResultDto<BookDto>> GetListAsync(BookGetListInput input)
@@ -60,6 +71,24 @@ namespace BookStore.Books
         public async Task DeleteAsync(Guid id)
         {
             await _bookRepository.DeleteAsync(id);
+        }
+        
+        public async Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync()
+        {
+            var authors = await _authorRepository.GetListAsync();
+
+            return new ListResultDto<AuthorLookupDto>(
+                ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
+            );
+        }
+
+        public async Task<ListResultDto<CategoryLookupDto>> GetCategoryLookupAsync()
+        {
+            var categories = await _categoryRepository.GetListAsync();
+
+            return new ListResultDto<CategoryLookupDto>(
+                ObjectMapper.Map<List<Category>, List<CategoryLookupDto>>(categories)
+            );
         }
     }
 }

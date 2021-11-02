@@ -33,7 +33,7 @@ namespace BookStore.Web.Menus
                     order: 0
                 )
             );
-            
+
             if (MultiTenancyConsts.IsEnabled)
             {
                 administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
@@ -45,7 +45,22 @@ namespace BookStore.Web.Menus
 
             administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
             administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
-            
+
+            //add books page to the main menu
+            context.Menu.AddItem(
+                new ApplicationMenuItem(
+                    "BookStore",
+                    "Book Store",
+                    icon: "fa fa-book"
+                ).AddItem(
+                    new ApplicationMenuItem(
+                        "BookStore.Books",
+                        "Books",
+                        url: "/Books"
+                    )
+                )
+            );
+
             return Task.CompletedTask;
         }
     }
