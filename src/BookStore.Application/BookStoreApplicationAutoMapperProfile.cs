@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookStore.Authors;
+using BookStore.Books;
 using BookStore.Categories;
 
 namespace BookStore
@@ -13,6 +14,8 @@ namespace BookStore
 
             CreateMap<Author, AuthorDto>();
             CreateMap<CreateUpdateAuthorDto, Author>();
+
+            CreateMap<BookWithDetails, BookDto>();
         }
     }
 }

@@ -61,7 +61,7 @@ namespace BookStore.EntityFrameworkCore
         public DbSet<Category> Categories { get; set; }
         
         //NOTE: We don't need to add DbSet<BookCategory>, because we will be
-        //query it via using the Book or Category entity
+        //query it via using the Book entity
         // public DbSet<BookCategory> BookCategories { get; set; }
         
         public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using BookStore.Categories;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -56,6 +57,18 @@ namespace BookStore.Books
             }
 
             Categories.RemoveAll(x => x.CategoryId == categoryId);
+        }
+
+        public void RemoveAllCategoriesExceptGivenIds(List<Guid> categoryIds)
+        {
+            Check.NotNullOrEmpty(categoryIds, nameof(categoryIds));
+            
+            Categories.RemoveAll(x => !categoryIds.Contains(x.CategoryId));
+        }
+
+        public void RemoveAllCategories()
+        {
+            Categories.RemoveAll(x => x.BookId == Id);
         }
 
         private bool IsInCategory(Guid categoryId)

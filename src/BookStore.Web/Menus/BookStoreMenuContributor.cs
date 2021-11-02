@@ -18,7 +18,7 @@ namespace BookStore.Web.Menus
             }
         }
 
-        private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
+        private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
         {
             var administration = context.Menu.GetAdministration();
             var l = context.GetLocalizer<BookStoreResource>();
@@ -45,6 +45,8 @@ namespace BookStore.Web.Menus
 
             administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
             administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+            
+            return Task.CompletedTask;
         }
     }
 }
