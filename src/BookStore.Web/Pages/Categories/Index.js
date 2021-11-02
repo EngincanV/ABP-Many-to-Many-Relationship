@@ -1,17 +1,17 @@
 ﻿$(function () {
-    var createModal = new abp.ModalManager(abp.appPath + 'Books/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Books/EditModal');
+    var createModal = new abp.ModalManager(abp.appPath + 'Categories/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'Categories/EditModal');
     
-    var bookService = bookStore.books.book;
+    var categoryService = bookStore.categories.category;
     
-    var dataTable = $('#BooksTable').DataTable(
+    var dataTable = $('#CategoriesTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
             paging: true,
             order: [[1, "asc"]],
             searching: false,
             scrollX: true,
-            ajax: abp.libs.datatables.createAjax(bookService.getList),
+            ajax: abp.libs.datatables.createAjax(categoryService.getList),
             columnDefs: [
                 {
                     title: 'Actions',
@@ -27,10 +27,10 @@
                                 {
                                     text: 'Delete',
                                     confirmMessage: function (data) {
-                                        return "Are you sure to delete the book '" + data.record.name  +"'?";
+                                        return "Are you sure to delete the category '" + data.record.name + "'?";
                                     },
                                     action: function (data) {
-                                        bookService
+                                        categoryService
                                             .delete(data.record.id)
                                             .then(function() {
                                                 abp.notify.info("Successfully deleted!");
@@ -44,32 +44,6 @@
                 {
                     title: 'Name',
                     data: "name"
-                },
-                {
-                    title: 'Publish Date',
-                    data: "publishDate",
-                    render: function (data) {
-                        return luxon
-                            .DateTime
-                            .fromISO(data, {
-                                locale: abp.localization.currentCulture.name
-                            }).toLocaleString();
-                    }
-                },
-                {
-                  title: 'Author Name',
-                  data: "authorName"  
-                },
-                {
-                    title: 'Price',
-                    data: "price"
-                },
-                {
-                   title: 'Categories',
-                   data: "categoryNames",
-                    render: function (data) {
-                       return data.join(", ");
-                    }
                 }
             ]
         })
@@ -83,7 +57,7 @@
         dataTable.ajax.reload();
     });
 
-    $('#NewBookButton').click(function (e) {
+    $('#NewCategoryButton').click(function (e) {
         e.preventDefault();
         createModal.open();
     });

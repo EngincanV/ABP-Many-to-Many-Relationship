@@ -1,0 +1,17 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model BookStore.Web.Pages.Categories.CreateModal
+
+@{
+    Layout = null;
+}
+
+<abp-dynamic-form abp-model="Category" asp-page="/Categories/CreateModal">
+    <abp-modal>
+        <abp-modal-header title="New Category"></abp-modal-header>
+        <abp-modal-body>
+            <abp-form-content />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</abp-dynamic-form>

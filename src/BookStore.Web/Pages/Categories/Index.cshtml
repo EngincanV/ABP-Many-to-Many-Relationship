@@ -1,0 +1,26 @@
+﻿@page
+@model BookStore.Web.Pages.Categories.Index
+
+@section scripts
+{
+    <abp-script src="/Pages/Categories/Index.js" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>Categories</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+                <abp-button id="NewCategoryButton"
+                            text="New Category"
+                            icon="plus"
+                            button-type="Primary"/>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="CategoriesTable"></abp-table>
+    </abp-card-body>
+</abp-card>

@@ -18,6 +18,8 @@ namespace BookStore.Web
             CreateMap<BookDto, CreateUpdateBookDto>();
 
             CreateMap<AuthorDto, CreateUpdateAuthorDto>();
+
+            CreateMap<CategoryDto, CreateUpdateCategoryDto>();
         }
     }
 }

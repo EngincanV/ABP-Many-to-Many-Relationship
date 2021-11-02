@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using BookStore.Authors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BookStore.Web.Pages.Authors
 {
