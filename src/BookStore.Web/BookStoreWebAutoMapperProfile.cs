@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookStore.Authors;
 using BookStore.Books;
 using BookStore.Categories;
 using BookStore.Web.Models;
@@ -15,6 +16,8 @@ namespace BookStore.Web
                 .Ignore(x => x.IsSelected);
 
             CreateMap<BookDto, CreateUpdateBookDto>();
+
+            CreateMap<AuthorDto, CreateUpdateAuthorDto>();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace BookStore.Web.Menus
             if (context.Menu.Name == StandardMenus.Main)
             {
                 await ConfigureMainMenuAsync(context);
+                await ConfigureBookStoreMenuAsync(context);
             }
         }
 
@@ -46,18 +47,43 @@ namespace BookStore.Web.Menus
             administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
             administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
 
+            
+
+            return Task.CompletedTask;
+        }
+
+        private Task ConfigureBookStoreMenuAsync(MenuConfigurationContext context)
+        {
             //add books page to the main menu
-            context.Menu.AddItem(
+            var bookStoreMenu = new ApplicationMenuItem(
+                "BookStore",
+                "Book Store",
+                icon: "fa fa-book"
+            );
+
+            context.Menu.AddItem(bookStoreMenu);
+
+            bookStoreMenu.AddItem(
                 new ApplicationMenuItem(
-                    "BookStore",
-                    "Book Store",
-                    icon: "fa fa-book"
-                ).AddItem(
-                    new ApplicationMenuItem(
-                        "BookStore.Books",
-                        "Books",
-                        url: "/Books"
-                    )
+                    "BookStore.Books",
+                    "Books",
+                    url: "/Books"
+                )
+            );
+
+            bookStoreMenu.AddItem(
+                new ApplicationMenuItem(
+                    "BookStore.Authors",
+                    "Authors",
+                    url: "/Authors"
+                )
+            );
+
+            bookStoreMenu.AddItem(
+                new ApplicationMenuItem(
+                    "BookStore.Categories",
+                    "Categories",
+                    "/Categories"
                 )
             );
 
