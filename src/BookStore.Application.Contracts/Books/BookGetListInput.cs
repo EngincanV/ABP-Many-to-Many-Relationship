@@ -4,6 +4,5 @@ namespace BookStore.Books
 {
     public class BookGetListInput : PagedAndSortedResultRequestDto
     {
-        
     }
 }
