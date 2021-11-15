@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BookStore.Authors;
-using BookStore.Books;
 using BookStore.Categories;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
@@ -15,19 +14,16 @@ namespace BookStore
         private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<Category, Guid> _categoryRepository;
         private readonly IRepository<Author, Guid> _authorRepository;
-        private readonly BookManager _bookManager;
         
         public BookStoreDataSeederContributor(
             IGuidGenerator guidGenerator,
             IRepository<Category, Guid> categoryRepository, 
-            IRepository<Author, Guid> authorRepository,
-            BookManager bookManager
+            IRepository<Author, Guid> authorRepository
         )
         {
             _guidGenerator = guidGenerator;
             _categoryRepository = categoryRepository;
             _authorRepository = authorRepository;
-            _bookManager = bookManager;
         }
 
         public async Task SeedAsync(DataSeedContext context)
