@@ -32,12 +32,8 @@ namespace BookStore
 
         public async Task SeedAsync(DataSeedContext context)
         {
-            var author1Id = _guidGenerator.Create();
-            var author2Id = _guidGenerator.Create();
-            
             await SeedCategoriesAsync();
-            await SeedAuthorsAsync(author1Id, author2Id);
-            await SeedBooksAsync(author1Id, author2Id);
+            await SeedAuthorsAsync();
         }
 
         private async Task SeedCategoriesAsync()
@@ -70,13 +66,13 @@ namespace BookStore
             }
         }
         
-        private async Task SeedAuthorsAsync(Guid author1Id, Guid author2Id)
+        private async Task SeedAuthorsAsync()
         {
             if (await _authorRepository.GetCountAsync() <= 0)
             {
                 await _authorRepository.InsertAsync(
                     new Author(
-                        author1Id, 
+                        _guidGenerator.Create(), 
                         "George Orwell", 
                         new DateTime(1903, 06, 25),
                   "Orwell produced literary criticism and poetry, fiction and polemical journalism; and is best known for the allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949)."
@@ -85,33 +81,11 @@ namespace BookStore
                 
                 await _authorRepository.InsertAsync(
                     new Author(
-                        author2Id, 
+                        _guidGenerator.Create(), 
                         "Dan Brown", 
                         new DateTime(1964, 06, 22),
                         "Daniel Gerhard Brown (born June 22, 1964) is an American author best known for his thriller novels"
                     )
-                );
-            }
-        }
-
-        private async Task SeedBooksAsync(Guid author1Id, Guid author2Id)
-        {
-            if (await _authorRepository.GetCountAsync() <= 0)
-            {
-                await _bookManager.CreateAsync(
-                    author1Id,
-                    "1984",
-                    new DateTime(1949, 6, 8),
-                    19.85f,
-                    categoryNames: new string[] {"Dystopia"}
-                );
-
-                await _bookManager.CreateAsync(
-                    author2Id,
-                    "Origin",
-                    new DateTime(2017, 10, 03),
-                    23.50f,
-                    categoryNames: new string[] {"Adventure", "Action"}
                 );
             }
         }
