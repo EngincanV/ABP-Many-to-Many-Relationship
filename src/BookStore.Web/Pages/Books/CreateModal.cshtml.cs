@@ -30,11 +30,13 @@ namespace BookStore.Web.Pages.Books
         {
             Book = new CreateUpdateBookDto();
             
+            //Get all authors and fill the select list
             var authorLookup = await _bookAppService.GetAuthorLookupAsync();
             AuthorList = authorLookup.Items
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
 
+            //Get all categories
             var categoryLookupDto = await _bookAppService.GetCategoryLookupAsync();
             Categories = ObjectMapper.Map<List<CategoryLookupDto>, List<CategoryViewModel>>(categoryLookupDto.Items.ToList());
         }

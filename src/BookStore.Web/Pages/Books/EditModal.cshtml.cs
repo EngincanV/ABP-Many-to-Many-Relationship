@@ -36,14 +36,17 @@ namespace BookStore.Web.Pages.Books
             var bookDto = await _bookAppService.GetAsync(Id);
             EditingBook = ObjectMapper.Map<BookDto, CreateUpdateBookDto>(bookDto);
             
+            //get all authors
             var authorLookup = await _bookAppService.GetAuthorLookupAsync();
             AuthorList = authorLookup.Items
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
 
+            //get all categories
             var categoryLookupDto = await _bookAppService.GetCategoryLookupAsync();
             Categories = ObjectMapper.Map<List<CategoryLookupDto>, List<CategoryViewModel>>(categoryLookupDto.Items.ToList());
 
+            //mark as Selected for Categories in the book
             if (EditingBook.CategoryNames != null && EditingBook.CategoryNames.Any())
             {
                 Categories
